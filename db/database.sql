@@ -1,4 +1,4 @@
--- Active: 1752665738585@@127.0.0.1@3306@php_pdo
+-- Active: 1752775982724@@127.0.0.1@3306@php_pdo
 
 -- Database commands
 
@@ -16,7 +16,7 @@ SELECT * FROM camper;
 
 DROP TABLE IF EXISTS producto;
 
-DROP TABLE IF EXISTS camper;
+DROP TABLE IF EXISTS campers;
 
 -- Tables
 
@@ -26,7 +26,7 @@ CREATE TABLE producto (
     price DECIMAL(10,2) NOT NULL
 );
 
-CREATE TABLE camper (
+CREATE TABLE campers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL UNIQUE,
     edad INT NOT NULL,
@@ -45,7 +45,7 @@ INSERT INTO producto(name, price)
 VALUES('esponja', 4000),
 ('pan de queso', 2000);
 
-INSERT INTO camper (nombre, edad, documento, tipo_documento, nivel_ingles, nivel_programacion)
+INSERT INTO campers (nombre, edad, documento, tipo_documento, nivel_ingles, nivel_programacion)
 VALUES 
 ('Ana Maria Rios', 19, '1001234567', 'Cédula', 4, 3),
 ('Luis Alberto Pena', 22, '1002234568', 'Cédula', 3, 4),
