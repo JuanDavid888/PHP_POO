@@ -66,7 +66,7 @@ class CamperRepositoryJsonImpl implements CamperRepository
         ];
     }
 
-    public function update(): object
+    public function update(int $id, array $data): object
     {
         return (object)[
             "id" => 0,

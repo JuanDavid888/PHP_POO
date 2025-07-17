@@ -10,7 +10,7 @@ SHOW TABLES;
 
 SELECT * FROM producto;
 
-SELECT * FROM camper;
+SELECT * FROM campers;
 
 -- Drops
 

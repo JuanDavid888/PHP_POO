@@ -39,12 +39,31 @@ class CamperRepositoryImpl implements CamperRepository
         ]);
         if ($this->db->lastInsertId() > 0) {
             $data['id'] = $this->db->lastInsertId();
+            return (object)$data;
+        } else {
+            return (object)["error" => "Error al insertar la data"];
         }
-        return (object)$data;
+        
     }
 
-    public function update(): object
+    public function update(int $id, array $data): object
     {
-        return json_decode('{"responsable":"El camper jajajaja"}');
+        $stmt = $this->db->prepare("UPDATE campers SET nombre=?, edad=?, documento=?, tipo_documento=?, nivel_ingles=?, nivel_programacion=? WHERE id=?");
+        $stmt->execute([
+            $data['nombre'],
+            $data['edad'],
+            $data['documento'],
+            $data['tipo_documento'],
+            $data['skill_ingles'],
+            $data['skill_programacion'],
+            $id
+        ]);
+
+        if ($stmt->rowCount() > 0) {
+            $data['id'] = $id;
+            return (object)$data;
+        } else {
+            return (object)["error" => "DTO -> Data Transfer Object..... Composer......"];
+        }
     }
 }
