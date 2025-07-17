@@ -1,5 +1,5 @@
 <?php
-require_once "route.php";
+require_once "src/route.php";
 // require_once "src/models/camper.php";
 // require_once "src/models/persona.php";
 // require_once "src/models/invitado.php";
