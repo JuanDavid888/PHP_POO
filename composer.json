@@ -1,0 +1,21 @@
+{
+    "name": "adds/api-basica",
+    "description": "Proyecto de prueba de php",
+    "autoload": {
+        "psr-4": {
+            "Adds\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "JuanDavid888",
+            "email": "190215642+JuanDavid888@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5.48"
+    }
+}
