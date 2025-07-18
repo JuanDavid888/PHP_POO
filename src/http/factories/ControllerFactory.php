@@ -5,6 +5,7 @@ include_once "src/http/controllers/ProductoController.php";
 include_once "src/http/controllers/CamperController.php";
 include_once "src/repositories/CamperRepositoryImpl.php";
 include_once "src/repositories/CamperRepositoryJsonImpl.php";
+include_once "src/repositories/ProductoRepositoryImpl.php";
 include_once "src/core/DatabasePDO.php";
 
 
@@ -17,7 +18,8 @@ class ControllerFactory
         //ProductoController es un CrudController
         switch ($path) {
             case 'producto':
-                return new ProductoController();
+                $repository = new ProductoRepositoryImpl(DatabasePDO::getConnection());
+                return new ProductoController($repository);
             case 'camper':
                 $repository = new CamperRepositoryImpl(DatabasePDO::getConnection());
                 //$repository = new CamperRepositoryJsonImpl();
