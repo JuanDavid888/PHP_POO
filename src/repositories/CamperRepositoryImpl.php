@@ -31,7 +31,7 @@ class CamperRepositoryImpl implements CamperRepository
     // documento,
     // tipo_documento,
     // nivelIngles,
-    //nivelProgramacion,
+    // nivelProgramacion,
 
     // DELETE > documento
     // ID,
@@ -44,7 +44,24 @@ class CamperRepositoryImpl implements CamperRepository
 
     public function findById(int $id): ?object
     {
-        $stmt = $this->db->prepare("SELECT id, nombre, edad, documento, tipo_documento, nivel_ingles, nivel_programacion FROM campers WHERE id = ?");
+        $stmt = $this->db->prepare
+        ("SELECT
+        id AS ID,
+        nombre,
+        edad,
+        documento,
+        tipo_documento AS tipoDocumento,
+        CASE
+            WHEN nivel_ingles <2 THEN 'BAJO'
+            WHEN nivel_ingles > 2 AND nivel_ingles < 4 THEN 'MEDIO'
+            ELSE 'ALTO'
+        END AS nivelIngles,
+        CASE
+            WHEN nivel_programacion <2 THEN 'JR'
+            WHEN nivel_programacion >2 AND nivel_programacion <=3 THEN 'JR M'
+            ELSE 'JR A'
+        END AS nivelProgramacion
+        FROM campers WHERE id = ?");
         $stmt->execute([$id]);
         $response = $stmt->fetch(PDO::FETCH_ASSOC);
         return $response ? (object)$response : (object)["message" => "No se encontro el camper"];
@@ -52,7 +69,23 @@ class CamperRepositoryImpl implements CamperRepository
 
     public function getAll(): array
     {
-        $stmt = $this->db->prepare("SELECT * FROM campers ORDER BY id ASC");
+        $stmt = $this->db->prepare("SELECT
+        id AS ID,
+        nombre,
+        edad,
+        documento,
+        tipo_documento AS tipoDocumento,
+        CASE
+            WHEN nivel_ingles <2 THEN 'BAJO'
+            WHEN nivel_ingles > 2 AND nivel_ingles < 4 THEN 'MEDIO'
+            ELSE 'ALTO'
+        END AS nivelIngles,
+        CASE
+            WHEN nivel_programacion <2 THEN 'JR'
+            WHEN nivel_programacion >2 AND nivel_programacion <=3 THEN 'JR M'
+            ELSE 'JR A'
+        END AS nivelProgramacion
+        FROM campers ORDER BY id ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -77,9 +110,9 @@ class CamperRepositoryImpl implements CamperRepository
         
     }
 
-    public function update(int $id, array $data): object
+    public function update(int $doc, array $data): object
     {
-        $stmt = $this->db->prepare("UPDATE campers SET nombre=?, edad=?, documento=?, tipo_documento=?, nivel_ingles=?, nivel_programacion=? WHERE id=?");
+        $stmt = $this->db->prepare("UPDATE campers SET nombre=?, edad=?, documento=?, tipo_documento=? AS tipoDocumento, nivel_ingles=? AS nivelIngles, nivel_programacion=? AS nivelProgramacion WHERE documento=?");
         $stmt->execute([
             $data['nombre'],
             $data['edad'],
@@ -87,14 +120,43 @@ class CamperRepositoryImpl implements CamperRepository
             $data['tipo_documento'],
             $data['skill_ingles'],
             $data['skill_programacion'],
-            $id
+            $doc
         ]);
 
         if ($stmt->rowCount() > 0) {
-            $data['id'] = $id;
+            $data['documento'] = $doc;
             return (object)$data;
         } else {
             return (object)["error" => "DTO -> Data Transfer Object..... Composer......"];
         }
+    }
+
+    public function delete(int $doc): object
+    {
+        $stmt = $this->db->prepare("SELECT
+        id AS ID,
+        nombre,
+        edad,
+        documento,
+        tipo_documento AS tipoDocumento,
+        CASE
+            WHEN nivel_ingles <2 THEN 'BAJO'
+            WHEN nivel_ingles > 2 AND nivel_ingles < 4 THEN 'MEDIO'
+            ELSE 'ALTO'
+        END AS nivelIngles,
+        CASE
+            WHEN nivel_programacion <2 THEN 'JR'
+            WHEN nivel_programacion >2 AND nivel_programacion <=3 THEN 'JR M'
+            ELSE 'JR A'
+        END AS nivelProgramacion
+        FROM campers ORDER BY id ASC");
+        $stmt->execute([$doc]);
+
+        $last_camper = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = $this->db->prepare("DELETE FROM camper WHERE documento=?");
+        $stmt->execute([$doc]);
+
+        return $last_camper ? (object)$last_camper : (object)["message" => "No se encontro el camper"];
     }
 }

@@ -32,8 +32,8 @@ CREATE TABLE campers (
     edad INT NOT NULL,
     documento VARCHAR(30) UNIQUE NOT NULL,
     tipo_documento VARCHAR(20) NOT NULL,
-    nivel_ingles TINYINT DEFAULT 0,
-    nivel_programacion TINYINT DEFAULT 0,
+    nivel_ingles TINYINT DEFAULT 0 CHECK (nivel_ingles BETWEEN 0 AND 6),
+    nivel_programacion TINYINT DEFAULT 0 CHECK (nivel_programacion BETWEEN 0 AND 5),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

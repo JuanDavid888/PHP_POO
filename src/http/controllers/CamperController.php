@@ -19,7 +19,8 @@ class CamperController extends CrudController
     public static array $dispatch = [
         "GET" => "get",
         "POST" => "create",
-        "PUT" => "update"
+        "PUT" => "update",
+        "DELETE" => "delete"
     ];
 
     public function get(array $args): void
@@ -63,15 +64,15 @@ class CamperController extends CrudController
 
     public function update(array $args): void
     {
-        $id = (int)$args["params"][0];
+        $doc = (int)$args["params"][0];
 
-        if (!isset($id)) {
+        if (!isset($doc)) {
             http_response_code(404);
             echo json_encode(['error' => 'ezta cono tv corasom bazio..... ', 'code' => 404, 'errorUrl' => 'https://http.cat/404']);
             return;
         }
 
-        $response = $this->repository->update($id, $args["data"]);
+        $response = $this->repository->update($doc, $args["data"]);
 
         if (!isset($response)) {
             http_response_code(400);
@@ -80,5 +81,24 @@ class CamperController extends CrudController
         }
 
         echo json_encode($response);
+    }
+
+    public function delete(array $args): void
+    {
+        $doc = (int)$args["params"][0];
+
+        if (!isset($doc)) {
+            http_response_code(404);
+            echo json_encode(['error' => 'No hay datos encontrados', 'code' => 404, 'errorUrl' => 'https://http.cat/404']);
+            return;
+        }
+
+        $response = $this->repository->delete($doc);
+
+        if (!isset($response)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Bad request', 'code' => 400, 'errorUrl' => 'https://http.cat/400']);
+            return;
+        }
     }
 }
