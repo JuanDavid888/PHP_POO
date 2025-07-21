@@ -1,4 +1,7 @@
 <?php
+
+namespace App\models;
+
 abstract class Persona
 {
     private int $id;

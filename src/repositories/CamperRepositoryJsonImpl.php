@@ -1,5 +1,8 @@
 <?php
 
+namespace App\repositories;
+use App\repositories\CamperRepository;
+
 require_once "CamperRepository.php";
 
 class CamperRepositoryJsonImpl implements CamperRepository

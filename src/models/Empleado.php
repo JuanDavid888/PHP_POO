@@ -1,6 +1,11 @@
 <?php
-include_once("persona.php");
-include_once("asistencia.php");
+
+namespace App\models;
+use App\models\Persona;
+use App\models\Asistencia;
+
+// include_once("Persona.php");
+// include_once("Asistencia.php");
 
 class Empleado extends Persona implements Asistencia
 {

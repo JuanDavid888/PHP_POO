@@ -1,9 +1,12 @@
 <?php
 
-include_once "src/http/controllers/ProductoController.php";
-include_once "src/http/controllers/CamperController.php";
-include_once "src/http/controllers/CrudController.php";
-include_once "src/http/factories/ControllerFactory.php";
+namespace App;
+use App\http\factories\ControllerFactory;
+
+// include_once "src/http/controllers/ProductoController.php";
+// include_once "src/http/controllers/CamperController.php";
+// include_once "src/http/controllers/CrudController.php";
+// include_once "src/http/factories/ControllerFactory.php";
 
 class Route
 {

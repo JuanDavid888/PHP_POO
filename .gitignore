@@ -1,1 +1,12 @@
-/vendor/
+# Composer
+composer.phar
+composer.lock
+vendor/
+
+# Php Unit
+.phpunit.result.cache
+.phpunit.cache
+phpunit.xml
+
+# Build
+build/

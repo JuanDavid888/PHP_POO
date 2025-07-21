@@ -3,7 +3,7 @@
     "description": "Proyecto de prueba de php",
     "autoload": {
         "psr-4": {
-            "Adds\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [

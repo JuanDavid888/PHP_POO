@@ -1,5 +1,11 @@
 <?php
 
+namespace App\core;
+
+use PDO;
+
+use PDOException;
+
 class DatabasePDO
 {
     private static ?PDO $connection = null;

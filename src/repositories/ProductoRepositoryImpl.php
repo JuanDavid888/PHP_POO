@@ -1,6 +1,10 @@
 <?php
 
-require_once "ProductoRepository.php";
+namespace App\repositories;
+use App\repositories\ProductoRepository;
+use PDO;
+
+// require_once "ProductoRepository.php";
 
 class ProductoRepositoryImpl implements ProductoRepository
 {

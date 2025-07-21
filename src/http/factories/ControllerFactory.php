@@ -1,12 +1,20 @@
 <?php
 
-include_once "src/http/controllers/CrudController.php";
-include_once "src/http/controllers/ProductoController.php";
-include_once "src/http/controllers/CamperController.php";
-include_once "src/repositories/CamperRepositoryImpl.php";
-include_once "src/repositories/CamperRepositoryJsonImpl.php";
-include_once "src/repositories/ProductoRepositoryImpl.php";
-include_once "src/core/DatabasePDO.php";
+namespace App\http\factories;
+use App\core\DatabasePDO;
+use App\http\controllers\CrudController;
+use App\http\controllers\CamperController;
+use App\http\controllers\ProductoController;
+use App\repositories\CamperRepositoryImpl;
+use App\repositories\ProductoRepositoryImpl;
+
+// include_once "src/http/controllers/CrudController.php";
+// include_once "src/http/controllers/ProductoController.php";
+// include_once "src/http/controllers/CamperController.php";
+// include_once "src/repositories/CamperRepositoryImpl.php";
+// include_once "src/repositories/CamperRepositoryJsonImpl.php";
+// include_once "src/repositories/ProductoRepositoryImpl.php";
+// include_once "src/core/DatabasePDO.php";
 
 
 class ControllerFactory

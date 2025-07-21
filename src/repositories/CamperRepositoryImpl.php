@@ -1,6 +1,10 @@
 <?php
 
-require_once "CamperRepository.php";
+namespace App\repositories;
+use App\repositories\CamperRepository;
+use PDO;
+
+// require_once "CamperRepository.php";
 
 class CamperRepositoryImpl implements CamperRepository
 {
@@ -11,9 +15,36 @@ class CamperRepositoryImpl implements CamperRepository
         $this->db = $db;
     }
 
+    // GET
+    // Devolver en formato
+    // ID,
+    // nombre,
+    // edad,
+    // documento
+    // tipoDocumento
+    // nivelIngles <2 BAJO, <4 MEDIO, >4 ALTO / 0-6
+    // nivelProgramacion: <2 JR, <=3 JR M, >3 JR A / 0-5
+
+    // PUT > documento = ?
+    // nombre,
+    // edad,
+    // documento,
+    // tipo_documento,
+    // nivelIngles,
+    //nivelProgramacion,
+
+    // DELETE > documento
+    // ID,
+    // nombre,
+    // edad,
+    // documento,
+    // tipo_documento,
+    // nivelIngles,
+    // nivelProgramacion,
+
     public function findById(int $id): ?object
     {
-        $stmt = $this->db->prepare("SELECT * FROM campers WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT id, nombre, edad, documento, tipo_documento, nivel_ingles, nivel_programacion FROM campers WHERE id = ?");
         $stmt->execute([$id]);
         $response = $stmt->fetch(PDO::FETCH_ASSOC);
         return $response ? (object)$response : (object)["message" => "No se encontro el camper"];
