@@ -17,7 +17,7 @@ class ProductoRepositoryImpl implements ProductoRepository
 
     public function findById(int $id): ?object
     {
-        $stmt = $this->db->prepare("SELECT * FROM producto WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT id AS ID, nombre, precio FROM producto WHERE id = ?");
         $stmt->execute([$id]);
         $response = $stmt->fetch(PDO::FETCH_ASSOC);
         return $response ? (object)$response : (object)["message" => "No se encontro el producto"];
@@ -25,7 +25,7 @@ class ProductoRepositoryImpl implements ProductoRepository
 
     public function getAll(): array
     {
-        $stmt = $this->db->prepare("SELECT * FROM producto ORDER BY id ASC");
+        $stmt = $this->db->prepare("SELECT id AS ID, nombre, precio FROM producto ORDER BY id ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -61,5 +61,26 @@ class ProductoRepositoryImpl implements ProductoRepository
         } else {
             return (object)["error" => "DTO -> Data Transfer Object..... Composer......"];
         }
+    }
+
+    public function delete(int $id): object
+    {
+        $stmt = $this->db->prepare("SELECT
+            id AS ID,
+            nombre,
+            precio
+            FROM producto WHERE id = ?");
+        $stmt->execute([$id]);
+
+        $last_delete = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$last_delete) {
+            return (object)["message" => "No se encontro el producto"];
+        }
+
+        $stmt = $this->db->prepare("DELETE FROM producto WHERE id = ?");
+        $stmt->execute([$id]);
+
+        return (object)$last_delete;
     }
 }

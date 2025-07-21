@@ -100,5 +100,9 @@ class CamperController extends CrudController
             echo json_encode(['error' => 'Bad request', 'code' => 400, 'errorUrl' => 'https://http.cat/400']);
             return;
         }
+
+        http_response_code(200);
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 }
